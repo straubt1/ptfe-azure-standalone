@@ -38,7 +38,7 @@ output "myptfe-info" {
 > During this time there will be a null_resource that does the polling, this is normal.
 1. Grab the output values.
 These will look something like this:
-```json
+```sh
 myptfe-info = {
   "ptfe-console-fqdn" = "https://ptfe-<random pet domain>.centralus.cloudapp.azure.com:8800"
   "ptfe-console-password" = "<random generated password>"
