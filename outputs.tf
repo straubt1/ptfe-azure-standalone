@@ -1,23 +1,29 @@
 output "ptfe-fqdn" {
-  value = "https://${azurerm_public_ip.main.fqdn}"
+  description = "The full URL to the pTFE instance."
+  value       = "https://${azurerm_public_ip.main.fqdn}"
 }
 
 output "ptfe-console-fqdn" {
-  value = "https://${azurerm_public_ip.main.fqdn}:8800"
+  description = "The full URL of the replicated console."
+  value       = "https://${azurerm_public_ip.main.fqdn}:8800"
 }
 
 output "ptfe-vm-username" {
-  value = local.admin_username
+  description = "The admin username for the VM. Needed to SSH into the instance."
+  value       = local.admin_username
 }
 
 output "ptfe-console-password" {
-  value = random_string.replicated-console-password.result
+  description = "The password for the replicated console. Dynamically generated."
+  value       = random_string.replicated-console-password.result
 }
 
 output "ptfe-site-admin-username" {
-  value = var.ptfe_site_admin_username
+  description = "The username for the site admin. User provided."
+  value       = var.ptfe_site_admin_username
 }
 
 output "ptfe-site-admin-password" {
-  value = random_string.ptfe-siteadmin-password.result
+  description = "The password for the site admin. Dynamically generated."
+  value       = random_string.ptfe-siteadmin-password.result
 }

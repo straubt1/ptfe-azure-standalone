@@ -77,11 +77,11 @@ The `terraform output` will give the `ptfe-vm-username` needed, and the ssh priv
 
 | Name | Description |
 |------|-------------|
-| ptfe-console-fqdn |  |
-| ptfe-console-password |  |
-| ptfe-fqdn |  |
-| ptfe-site-admin-password |  |
-| ptfe-site-admin-username |  |
-| ptfe-vm-username |  |
+| ptfe-console-fqdn | The full URL of the replicated console. |
+| ptfe-console-password | The password for the replicated console. Dynamically generated. |
+| ptfe-fqdn | The full URL to the pTFE instance. |
+| ptfe-site-admin-password | The password for the site admin. Dynamically generated. |
+| ptfe-site-admin-username | The username for the site admin. User provided. |
+| ptfe-vm-username | The admin username for the VM. Needed to SSH into the instance. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
