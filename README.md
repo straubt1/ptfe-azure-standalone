@@ -10,25 +10,43 @@ Single Virtual Machine running Ubuntu 16.04
 
 ## Running
 
-1. Clone this repository
-2. Create a `terraform.tfvars` file and fill in the following values. The license path will be the path the license.rli file for pTFE.
-
+1. Create a new project folder on your local workstation.
+1. Obtain the pTFE license file and name it `license.rli` inside your directory.
+1. Create a `main.tf` file with the following contents:
 ```hcl
-ptfe_license_path        = ""
-ptfe_site_admin_username = ""
-ptfe_site_admin_email    = ""
+module "myptfe" {
+  source = "git@github.com:straubt1/ptfe-azure-standalone.git"
+
+  # Required variables
+  ptfe_license_path        = "./license.rli"
+  ptfe_site_admin_username = "tstraub"
+  ptfe_site_admin_email    = "tom.straub@insight.com"
+
+  # Optional variables
+  # namespace = "ptfe"
+  # location  = "centralus"
+  # vm_size   = "Standard_D2_v2"
+}
+
+output "myptfe-info" {
+  value = module.myptfe
+}
 ```
-3. Apply the Terraform.
-> Note: it may take up to 10 minutes for the TFE instance to become available after the Terraform Apply completes.
-4. Grab the output values.
+1. Apply the Terraform.
+> Note: it may take up to 10 minutes for the TFE instance to become available.
+> 
+> During this time there will be a null_resource that does the polling, this is normal.
+1. Grab the output values.
 These will look something like this:
-```sh
-ptfe-console-fqdn = https://ptfe-<random pet domain>.centralus.cloudapp.azure.com:8800
-ptfe-console-password = <random generated password>
-ptfe-fqdn = https://ptfe-<random pet domain>.centralus.cloudapp.azure.com
-ptfe-site-admin-password = <random generated password>
-ptfe-site-admin-username = <user provided>
-ptfe-vm-username = ptfepoweruser
+```json
+myptfe-info = {
+  "ptfe-console-fqdn" = "https://ptfe-<random pet domain>.centralus.cloudapp.azure.com:8800"
+  "ptfe-console-password" = "<random generated password>"
+  "ptfe-fqdn" = "https://ptfe-<random pet domain>.centralus.cloudapp.azure.com"
+  "ptfe-site-admin-password" = "<random generated password>"
+  "ptfe-site-admin-username" = "<user provided>"
+  "ptfe-vm-username" = "ptfepoweruser"
+}
 ```
 Navigate to the `ptfe-fqdn` from a browser (accept the self-signed cert error), you will see a login.
 Use the site admin credentials to gain access to Terraform Enterprise.
